@@ -1,0 +1,21 @@
+modLoader="javafml" #mandatory
+loaderVersion="[40,)"
+license="MIT License"
+[[mods]] #mandatory
+modId="furnacemod"
+version="${file.jarVersion}"
+displayName="Furnace Mod"
+# The description text for the mod (multi line!) (#mandatory)
+description='''Furnace Mod, adding a variety of heat powered systems to minecraft.'''
+[[dependencies.furnacemod]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.furnacemod]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
