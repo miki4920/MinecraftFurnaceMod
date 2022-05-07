@@ -2,6 +2,7 @@ package com.miki4920.furnacemod.init;
 
 import com.google.common.base.Supplier;
 import com.miki4920.furnacemod.FurnaceMod;
+import com.miki4920.furnacemod.block.LavaGenerator;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +21,7 @@ public class BlockInit {
     public static final DeferredRegister<Item> ITEMS = ItemInit.ITEMS;
 
     public static final RegistryObject<Block> LAVA_GENERATOR = register("lava_generator",
-            () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY).strength(3.0f).sound(SoundType.STONE).requiresCorrectToolForDrops()), object -> () -> new BlockItem(object.get(), new Item.Properties().tab(FurnaceMod.FURNACE_MOD_TAB)));
+            () -> new LavaGenerator(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLACK).strength(50.0f).sound(SoundType.STONE).requiresCorrectToolForDrops()), object -> () -> new BlockItem(object.get(), new Item.Properties().tab(FurnaceMod.FURNACE_MOD_TAB)));
     private static <T extends Block> RegistryObject<T> registerBlock(final String name, final Supplier<? extends T> block) {
         return BLOCKS.register(name, block);
     }
