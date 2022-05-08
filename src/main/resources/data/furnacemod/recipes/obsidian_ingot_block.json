@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "item": "furnacemod:obsidian_ingot"
+      "tag": "forge:ingots/refined_obsidian"
     }
   },
   "result": {

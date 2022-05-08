@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "furnacemod:obsidian_ore",
+    "furnacemod:obsidian_ingot_block"
+  ]
+}
