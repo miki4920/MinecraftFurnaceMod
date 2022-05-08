@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "furnacemod:block/obsidian_ingot_block_slab"
+    },
+    "type=double": {
+      "model": "furnacemod:block/obsidian_ingot_block"
+    },
+    "type=top": {
+      "model": "furnacemod:block/obsidian_ingot_block_slab_top"
+    }
+  }
+}
