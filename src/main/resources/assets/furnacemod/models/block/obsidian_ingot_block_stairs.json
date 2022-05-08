@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "furnacemod:block/obsidian_ingot_block",
+    "top": "furnacemod:block/obsidian_ingot_block",
+    "side": "furnacemod:block/obsidian_ingot_block"
+  }
+}
