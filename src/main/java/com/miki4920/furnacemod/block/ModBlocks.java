@@ -6,8 +6,7 @@ import com.miki4920.furnacemod.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -25,6 +24,18 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK = registerBlock("obsidian_ingot_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+
+    public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_STAIRS = registerBlock("obsidian_ingot_block_stairs",
+            () -> new StairBlock(() -> ModBlocks.OBSIDIAN_INGOT_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+    public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_SLAB = registerBlock("obsidian_ingot_block_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+    public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_FENCE = registerBlock("obsidian_ingot_block_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+    public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_FENCE_GATE = registerBlock("obsidian_ingot_block_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+    public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_WALL = registerBlock("obsidian_ingot_block_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn, tab);
