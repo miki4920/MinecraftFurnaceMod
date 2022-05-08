@@ -1,4 +1,6 @@
 {
-  "block.furnacemod.lava_generator": "Lava Generator",
-  "itemGroup.furnacemod": "Furnace Mod Tab"
+  "item.furnacemod.obsidian_ingot": "Obsidian Ingot",
+  "block.furnacemod.obsidian_ore": "Obsidian Ore",
+  "block.furnacemod.obsidian_ingot_block": "Obsidian Ingot Block",
+  "itemGroup.furnacetab": "Furnace Mod"
 }

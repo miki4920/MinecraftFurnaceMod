@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "furnacemod:block/lava_generator"
+    "all": "furnacemod:block/obsidian_ingot_block"
   }
 }
