@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "furnacemod:item/obsidian_ingot_pickaxe"
+  }
+}

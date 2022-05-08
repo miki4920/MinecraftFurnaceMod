@@ -1,6 +1,19 @@
 {
   "item.furnacemod.obsidian_ingot": "Obsidian Ingot",
+
+  "item.furnacemod.obsidian_ingot_sword":"Obsidian Ingot Sword",
+  "item.furnacemod.obsidian_ingot_hoe":"Obsidian Ingot Hoe",
+  "item.furnacemod.obsidian_ingot_pickaxe":"Obsidian Ingot Pickaxe",
+  "item.furnacemod.obsidian_ingot_axe":"Obsidian Ingot Axe",
+  "item.furnacemod.obsidian_ingot_shovel":"Obsidian Ingot Shovel",
+
   "block.furnacemod.obsidian_ore": "Obsidian Ore",
   "block.furnacemod.obsidian_ingot_block": "Obsidian Ingot Block",
+  "block.furnacemod.obsidian_ingot_block_stairs": "Obsidian Stairs",
+  "block.furnacemod.obsidian_ingot_block_slab": "Obsidian Slab",
+  "block.furnacemod.obsidian_ingot_block_fence": "Obsidian Fence",
+  "block.furnacemod.obsidian_ingot_block_fence_gate": "Obsidian Fence Gate",
+  "block.furnacemod.obsidian_ingot_block_wall": "Obsidian Wall",
+
   "itemGroup.furnacetab": "Furnace Mod"
 }
