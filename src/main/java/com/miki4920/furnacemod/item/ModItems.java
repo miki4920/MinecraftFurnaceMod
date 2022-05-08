@@ -14,7 +14,7 @@ public class ModItems {
             () -> new Item(new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
 
     public static final RegistryObject<Item> OBSIDIAN_INGOT_SWORD = ITEMS.register("obsidian_ingot_sword",
-            () -> new SwordItem(ModTiers.OBSIDIAN_INGOT, 6, 1.6f, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
+            () -> new SwordItem(ModTiers.OBSIDIAN_INGOT, 7, 1f, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
 
     public static final RegistryObject<Item> OBSIDIAN_INGOT_PICKAXE = ITEMS.register("obsidian_ingot_pickaxe",
             () -> new PickaxeItem(ModTiers.OBSIDIAN_INGOT, 1, 1f, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
