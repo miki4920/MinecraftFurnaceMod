@@ -37,14 +37,15 @@ public class ModItems {
             () -> new ShovelItem(ModTiers.OBSIDIAN_INGOT, -4, -2.4f, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
 
     // Armour
+    private static final MobEffect[] FULL_ARMOR_SET_EFFECTS = new MobEffect[]{MobEffects.MOVEMENT_SLOWDOWN, MobEffects.FIRE_RESISTANCE, MobEffects.DIG_SPEED};
     public static final RegistryObject<Item> OBSIDIAN_INGOT_HELMET = ITEMS.register("obsidian_ingot_helmet",
-            () -> new ArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.HEAD, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
+            () -> new ModArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.HEAD, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB), FULL_ARMOR_SET_EFFECTS));
     public static final RegistryObject<Item> OBSIDIAN_INGOT_CHESTPLATE = ITEMS.register("obsidian_ingot_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.CHEST, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
+            () -> new ModArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.CHEST, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB), FULL_ARMOR_SET_EFFECTS));
     public static final RegistryObject<Item> OBSIDIAN_INGOT_LEGGINGS = ITEMS.register("obsidian_ingot_leggings",
-            () -> new ArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.LEGS, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
+            () -> new ModArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.LEGS, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB), FULL_ARMOR_SET_EFFECTS));
     public static final RegistryObject<Item> OBSIDIAN_INGOT_BOOTS = ITEMS.register("obsidian_ingot_boots",
-            () -> new ArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.FEET, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB)));
+            () -> new ModArmorItem(ModArmorMaterials.OBSIDIAN_INGOT, EquipmentSlot.FEET, new Item.Properties().fireResistant().tab(ModCreativeModeTab.FURNACE_MOD_TAB), FULL_ARMOR_SET_EFFECTS));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
