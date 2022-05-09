@@ -8,6 +8,7 @@
     "furnacemod:obsidian_ingot_block_slab",
     "furnacemod:obsidian_ingot_block_fence",
     "furnacemod:obsidian_ingot_block_fence_gate",
-    "furnacemod:obsidian_ingot_block_wall"
+    "furnacemod:obsidian_ingot_block_wall",
+    "furnacemod:obsidian_ingot_lamp"
   ]
 }

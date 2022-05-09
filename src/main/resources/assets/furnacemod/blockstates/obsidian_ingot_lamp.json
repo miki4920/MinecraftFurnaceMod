@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "full_power=true": {"model":  "furnacemod:block/obsidian_ingot_lamp_full_power_on"},
+    "full_power=false": {"model":  "furnacemod:block/obsidian_ingot_lamp_full_power_off"}
+  }
+}

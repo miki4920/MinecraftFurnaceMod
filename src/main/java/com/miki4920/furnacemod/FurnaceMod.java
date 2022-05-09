@@ -30,5 +30,6 @@ public class FurnaceMod
 
     private void clientSetup(final FMLClientSetupEvent event) {
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.OBSIDIAN_INGOT_GLASS.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(ModBlocks.OBSIDIAN_INGOT_LAMP.get(), RenderType.translucent());
     }
 }
