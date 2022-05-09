@@ -39,7 +39,6 @@ public class ModBlocks {
             () -> new WallBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
 
     // Obsidian Ingot Glass
-    // TODO: Fix the crafting recipe
     public static final RegistryObject<Block> OBSIDIAN_INGOT_GLASS = registerBlock("obsidian_ingot_glass",
             () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(50).requiresCorrectToolForDrops().noOcclusion().sound(SoundType.GLASS)), ModCreativeModeTab.FURNACE_MOD_TAB);
 

@@ -10,7 +10,7 @@
       "item": "furnacemod:obsidian_ingot_block"
     },
     "G": {
-      "tag": "forge:blocks/glass"
+      "tag": "forge:glass"
     }
   },
   "result": {
