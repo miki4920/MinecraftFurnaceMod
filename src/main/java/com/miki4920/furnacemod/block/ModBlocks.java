@@ -22,8 +22,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> OBSIDIAN_ORE = registerBlock("obsidian_ore",
             () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
 
+    // Obsidian Ingot Glass
+
     public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK = registerBlock("obsidian_ingot_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+
+    // Obsidian Ingot fences, stairs etc.
 
     public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_STAIRS = registerBlock("obsidian_ingot_block_stairs",
             () -> new StairBlock(() -> ModBlocks.OBSIDIAN_INGOT_BLOCK.get().defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
@@ -35,6 +39,11 @@ public class ModBlocks {
             () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
     public static final RegistryObject<Block> OBSIDIAN_INGOT_BLOCK_WALL = registerBlock("obsidian_ingot_block_wall",
             () -> new WallBlock(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops()), ModCreativeModeTab.FURNACE_MOD_TAB);
+
+    // Obsidian Ingot Glass
+    public static final RegistryObject<Block> OBSIDIAN_INGOT_GLASS = registerBlock("obsidian_ingot_glass",
+            () -> new GlassBlock(BlockBehaviour.Properties.of(Material.GLASS).strength(50).requiresCorrectToolForDrops().noOcclusion().sound(SoundType.GLASS)), ModCreativeModeTab.FURNACE_MOD_TAB);
+
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
