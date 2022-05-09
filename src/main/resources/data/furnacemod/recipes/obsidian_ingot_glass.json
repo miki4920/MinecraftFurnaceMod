@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
-    "#I#",
-    "###"
+    "GGG",
+    "GIG",
+    "GGG"
   ],
   "key": {
     "I": {
-      "tag": "forge:ingots/refined_obsidian"
+      "item": "furnacemod:obsidian_ingot_block"
     },
     "G": {
-      "tag": "forge:blocks/glass/colorless"
+      "tag": "forge:blocks/glass"
     }
   },
   "result": {

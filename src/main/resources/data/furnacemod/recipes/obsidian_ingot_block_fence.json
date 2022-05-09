@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "BIB",
+    "BIB"
+  ],
+  "key": {
+    "I": {
+      "tag": "forge:ingots/refined_obsidian"
+    },
+    "B": {
+      "item": "furnacemod:obsidian_ingot_block"
+    }
+  },
+  "result": {
+    "item": "furnacemod:obsidian_ingot_block_fence",
+    "count": 12
+  }
+}
