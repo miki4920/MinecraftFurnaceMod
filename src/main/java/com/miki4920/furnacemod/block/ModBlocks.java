@@ -1,6 +1,7 @@
 package com.miki4920.furnacemod.block;
 
 import com.miki4920.furnacemod.FurnaceMod;
+import com.miki4920.furnacemod.block.custom.LavaPoweredFurnace;
 import com.miki4920.furnacemod.block.custom.ObsidianIngotLamp;
 import com.miki4920.furnacemod.item.ModCreativeModeTab;
 import com.miki4920.furnacemod.item.ModItems;
@@ -48,6 +49,9 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> OBSIDIAN_INGOT_LAMP = registerBlock("obsidian_ingot_lamp",
             () -> new ObsidianIngotLamp(BlockBehaviour.Properties.of(Material.GLASS).strength(50).requiresCorrectToolForDrops().noOcclusion().lightLevel((state) -> state.getValue(ObsidianIngotLamp.FULL_POWER) ? 15 : OBSIDIAN_LIGHT_LEVEL).sound(SoundType.GLASS)), ModCreativeModeTab.FURNACE_MOD_TAB);
+
+    public static final RegistryObject<Block> LAVA_POWERED_FURNACE = registerBlock("lava_powered_furnace",
+            () -> new LavaPoweredFurnace(BlockBehaviour.Properties.of(Material.STONE).strength(50).requiresCorrectToolForDrops().noOcclusion().sound(SoundType.GLASS)), ModCreativeModeTab.FURNACE_MOD_TAB);
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {

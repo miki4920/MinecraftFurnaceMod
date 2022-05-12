@@ -1,13 +1,13 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "furnacemod:blocks/machines/lava_powered_furnace/lava_powered_furnace_front",
-		"1": "furnacemod:blocks/machines/lava_powered_furnace/lava_powered_furnace_top",
-		"4": "furnacemod:blocks/machines/lava_powered_furnace/lava_powered_furnace_side",
-		"5": "furnacemod:blocks/machines/lava_powered_furnace/lava_powered_furnace_lava",
-		"6": "furnacemod:blocks/machines/lava_powered_furnace/lava_powered_furnace_glass",
-		"7": "furnacemod:blocks/machines/lava_powered_furnace/lava_powered_furnace_empty",
-		"particle": "minecraft:block/furnace"
+		"0": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_front",
+		"1": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_top",
+		"4": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_side",
+		"5": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_lava",
+		"6": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_glass",
+		"7": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_empty",
+		"particle": "furnacemod:block/machines/lava_powered_furnace/lava_powered_furnace_front"
 	},
 	"elements": [
 		{
