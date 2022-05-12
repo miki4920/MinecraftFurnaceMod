@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "GIG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:obsidian"
+    },
+    "I": {
+      "tag": "forge:glass"
+    }
+  },
+  "result": {
+    "item": "furnacemod:lava_powered_furnace"
+  }
+}
