@@ -182,18 +182,12 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         if(canInsertLava(entity)) {
             insertLava(entity);
         }
-        if(entity.itemHandler.getStackInSlot(0).getItem() == Items.LAVA_BUCKET && entity.fluidTank.getFluidAmount() < entity.fluidTank.getCapacity()) {
-            entity.fluidTank.fill(new FluidStack(Fluids.LAVA, 1000), IFluidHandler.FluidAction.EXECUTE);
-            entity.itemHandler.extractItem(0, 1, false);
-            entity.itemHandler.setStackInSlot(1, new ItemStack(Items.BUCKET,
-                    entity.itemHandler.getStackInSlot(1).getCount() + 1));
-        }
     }
 
     private static boolean canInsertLava(LavaPoweredFurnaceEntity entity) {
-        ItemStack inputItemStack = entity.itemHandler.getStackInSlot(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT);
         SimpleContainer inventory = getInventory(entity);
-        if(inputItemStack == ItemStack.EMPTY || !(inputItemStack.getItem() instanceof BucketItem bucket)) {
+        ItemStack inputItemStack = inventory.getItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT);
+        if(inputItemStack == ItemStack.EMPTY || !(inputItemStack.getItem() instanceof BucketItem)) {
             return false;
         }
         else if(!canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
@@ -206,12 +200,12 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     }
 
     private static void insertLava(LavaPoweredFurnaceEntity entity) {
-        ItemStack inputItemStack = entity.itemHandler.getStackInSlot(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT);
         SimpleContainer inventory = getInventory(entity);
+        ItemStack inputItemStack = inventory.getItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT);
         BucketItem bucket = (BucketItem) inputItemStack.getItem();
         FluidStack extracted = new FluidStack(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
         entity.fluidTank.fill(extracted, IFluidHandler.FluidAction.EXECUTE);
-        entity.itemHandler.extractItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 1, false);
+        inventory.removeItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 1);
         if(canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
             entity.itemHandler.insertItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT, new ItemStack(Items.BUCKET, 1), false);
         }

@@ -35,11 +35,11 @@ public class LavaPoweredFurnaceMenu extends AbstractContainerMenu {
         addPlayerHotbar(inventory);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 34, 40));
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT, 34, 60));
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_ONE, 57, 18));
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_TWO, 103, 18));
-            this.addSlot(new ModResultSlot(handler, LavaPoweredFurnaceEntity.OUTPUT_SLOT, 80, 49));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 48, 18));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT, 48, 53));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_ONE, 88, 18));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_TWO, 134, 18));
+            this.addSlot(new ModResultSlot(handler, LavaPoweredFurnaceEntity.OUTPUT_SLOT, 111, 51));
         });
 
         addDataSlots(data);
@@ -52,7 +52,7 @@ public class LavaPoweredFurnaceMenu extends AbstractContainerMenu {
     public int getScaledProgress() {
         int progress = this.data.get(0);
         int maxProgress = this.data.get(1);
-        int progressArrowSize = 26;
+        int progressArrowSize = 29;
         return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
     }
 
