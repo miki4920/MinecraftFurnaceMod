@@ -3,6 +3,7 @@ package com.miki4920.furnacemod;
 import com.miki4920.furnacemod.block.ModBlocks;
 import com.miki4920.furnacemod.block.entity.ModBlockEntities;
 import com.miki4920.furnacemod.item.ModItems;
+import com.miki4920.furnacemod.recipe.ModRecipes;
 import com.miki4920.furnacemod.screen.LavaPoweredFurnaceScreen;
 import com.miki4920.furnacemod.screen.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -28,6 +29,7 @@ public class FurnaceMod
         ModBlocks.register(eventBus);
         ModBlockEntities.register(eventBus);
         ModMenuTypes.register(eventBus);
+        ModRecipes.register(eventBus);
         eventBus.addListener(this::clientSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
