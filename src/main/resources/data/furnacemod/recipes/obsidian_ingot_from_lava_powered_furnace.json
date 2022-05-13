@@ -1,0 +1,14 @@
+{
+  "type": "furnacemod:lava_powered_furnace_recipe",
+  "ingredients": [
+    {
+      "tag": "forge:obsidian"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    }
+  ],
+  "output": {
+    "item": "furnacemod:obsidian_ingot"
+  }
+}
