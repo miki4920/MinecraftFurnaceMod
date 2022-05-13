@@ -5,12 +5,10 @@ import com.miki4920.furnacemod.block.custom.LavaPoweredFurnace;
 import com.miki4920.furnacemod.block.entity.custom.LavaPoweredFurnaceEntity;
 import com.miki4920.furnacemod.screen.slot.ModResultSlot;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -21,26 +19,48 @@ import org.jetbrains.annotations.Nullable;
 public class LavaPoweredFurnaceMenu extends AbstractContainerMenu {
     private final LavaPoweredFurnaceEntity blockEntity;
     private final Level level;
+    private final ContainerData data;
 
     protected LavaPoweredFurnaceMenu(int pContainerId, Inventory inventory, FriendlyByteBuf extraData) {
-        this(pContainerId, inventory, inventory.player.level.getBlockEntity(extraData.readBlockPos()));
+        this(pContainerId, inventory, inventory.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
-    public LavaPoweredFurnaceMenu(int pContainerId, Inventory inventory, BlockEntity entity) {
+    public LavaPoweredFurnaceMenu(int pContainerId, Inventory inventory, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.LAVA_POWERED_FURNACE_MENU.get(), pContainerId);
         checkContainerSize(inventory, LavaPoweredFurnaceEntity.ITEM_SLOTS);
         blockEntity = ((LavaPoweredFurnaceEntity) entity);
         this.level = inventory.player.level;
+        this.data = data;
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, 0, 34, 40));
-            this.addSlot(new SlotItemHandler(handler, 1, 34, 60));
-            this.addSlot(new SlotItemHandler(handler, 2, 57, 18));
-            this.addSlot(new SlotItemHandler(handler, 3, 103, 18));
-            this.addSlot(new ModResultSlot(handler, 4, 80, 60));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 34, 40));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT, 34, 60));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_ONE, 57, 18));
+            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_TWO, 103, 18));
+            this.addSlot(new ModResultSlot(handler, LavaPoweredFurnaceEntity.OUTPUT_SLOT, 80, 49));
         });
+
+        addDataSlots(data);
+    }
+
+    public boolean isCrafting() {
+        return data.get(0) > 0;
+    }
+
+    public int getScaledProgress() {
+        int progress = this.data.get(0);
+        int maxProgress = this.data.get(1);
+        int progressArrowSize = 26;
+        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    }
+
+    public int getContainerCapacity() {
+        int amount = this.data.get(2);
+        int capacity = this.data.get(3);
+        int lavaContainerSize = 51;
+        return capacity != 0 && amount != 0 ? amount * lavaContainerSize / capacity : 0;
     }
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;

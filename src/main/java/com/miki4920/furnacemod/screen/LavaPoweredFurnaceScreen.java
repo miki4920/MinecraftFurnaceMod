@@ -26,6 +26,14 @@ public class LavaPoweredFurnaceScreen extends AbstractContainerScreen<LavaPowere
         int y = (height - imageHeight) / 2;
 
         this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+
+        if(menu.isCrafting()) {
+            blit(pPoseStack, x + 102, y + 41, 176, 0, 8, menu.getScaledProgress());
+        }
+
+
+        blit(pPoseStack, x + 8, y + 18, 0, 168, 34, menu.getContainerCapacity());
+
     }
 
     @Override
