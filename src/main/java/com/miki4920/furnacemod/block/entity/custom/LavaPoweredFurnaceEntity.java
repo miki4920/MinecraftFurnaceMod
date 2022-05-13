@@ -1,6 +1,5 @@
 package com.miki4920.furnacemod.block.entity.custom;
 
-import com.miki4920.furnacemod.block.custom.LavaPoweredFurnace;
 import com.miki4920.furnacemod.block.entity.ModBlockEntities;
 import com.miki4920.furnacemod.recipe.LavaPoweredFurnaceRecipe;
 import com.miki4920.furnacemod.screen.LavaPoweredFurnaceMenu;
@@ -71,21 +70,21 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         super(ModBlockEntities.LAVA_POWERED_FURNACE_ENTITY.get(), pWorldPosition, pBlockState);
         this.data = new ContainerData() {
             public int get(int index) {
-                switch (index) {
-                    case 0: return LavaPoweredFurnaceEntity.this.progress;
-                    case 1: return LavaPoweredFurnaceEntity.this.maxProgress;
-                    case 2: return LavaPoweredFurnaceEntity.this.fluidTank.getFluidAmount();
-                    case 3: return LavaPoweredFurnaceEntity.this.fluidTank.getCapacity();
-                    default: return 0;
-                }
+                return switch (index) {
+                    case 0 -> LavaPoweredFurnaceEntity.this.progress;
+                    case 1 -> LavaPoweredFurnaceEntity.this.maxProgress;
+                    case 2 -> LavaPoweredFurnaceEntity.this.fluidTank.getFluidAmount();
+                    case 3 -> LavaPoweredFurnaceEntity.this.fluidTank.getCapacity();
+                    default -> 0;
+                };
             }
 
             public void set(int index, int value) {
                 switch (index) {
-                    case 0: LavaPoweredFurnaceEntity.this.progress = value; break;
-                    case 1: LavaPoweredFurnaceEntity.this.maxProgress = value; break;
-                    case 2: LavaPoweredFurnaceEntity.this.fluidTank.setFluid(new FluidStack(Fluids.LAVA, value)); break;
-                    case 3: LavaPoweredFurnaceEntity.this.fluidTank.setCapacity(value); break;
+                    case 0 -> LavaPoweredFurnaceEntity.this.progress = value;
+                    case 1 -> LavaPoweredFurnaceEntity.this.maxProgress = value;
+                    case 2 -> LavaPoweredFurnaceEntity.this.fluidTank.setFluid(new FluidStack(Fluids.LAVA, value));
+                    case 3 -> LavaPoweredFurnaceEntity.this.fluidTank.setCapacity(value);
                 }
             }
 
@@ -96,13 +95,13 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public Component getDisplayName() {
+    public @NotNull Component getDisplayName() {
         return new TextComponent("Lava-Powered Furnace");
     }
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player pPlayer) {
         return new LavaPoweredFurnaceMenu(pContainerId, pInventory, this, this.data);
     }
 
@@ -142,7 +141,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     }
 
     @Override
-    public void load(CompoundTag nbt) {
+    public void load(@NotNull CompoundTag nbt) {
         super.load(nbt);
         itemHandler.deserializeNBT(nbt.getCompound("inventory"));
         fluidTank.readFromNBT(nbt.getCompound("fluid"));
@@ -154,6 +153,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
+        assert this.level != null;
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
@@ -218,7 +218,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     private static boolean hasRecipe(LavaPoweredFurnaceEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = getInventory(entity);
-
+        assert level != null;
         Optional<LavaPoweredFurnaceRecipe> match = level.getRecipeManager()
                 .getRecipeFor(LavaPoweredFurnaceRecipe.Type.INSTANCE, inventory, level);
 
@@ -233,6 +233,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         Level level = entity.level;
         SimpleContainer inventory = getInventory(entity);
 
+        assert level != null;
         Optional<LavaPoweredFurnaceRecipe> match = level.getRecipeManager()
                 .getRecipeFor(LavaPoweredFurnaceRecipe.Type.INSTANCE, inventory, level);
 
