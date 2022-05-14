@@ -166,21 +166,23 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     }
 
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, LavaPoweredFurnaceEntity entity) {
-        if(hasRecipe(entity) && hasEnoughLava(entity)) {
-            entity.progress++;
-            removeLava(entity);
-            setChanged(pLevel, pPos, pState);
-            if(entity.progress > entity.maxProgress) {
-                craftItem(entity);
+        if(!pLevel.isClientSide()) {
+            if(hasRecipe(entity) && hasEnoughLava(entity)) {
+                entity.progress++;
+                removeLava(entity);
+                setChanged(pLevel, pPos, pState);
+                if(entity.progress > entity.maxProgress) {
+                    craftItem(entity);
 
+                }
             }
-        }
-        else {
-            entity.resetProgress();
-            setChanged(pLevel, pPos, pState);
-        }
-        if(canInsertLava(entity)) {
-            insertLava(entity);
+            else {
+                entity.resetProgress();
+                setChanged(pLevel, pPos, pState);
+            }
+            if(canInsertLava(entity)) {
+                insertLava(entity);
+            }
         }
     }
 
@@ -193,7 +195,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         else if(!canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
             return false;
         }
-        else if(!(entity.fluidTank.getFluidAmount() + FluidAttributes.BUCKET_VOLUME < entity.fluidTank.getCapacity())) {
+        else if(!(entity.fluidTank.getFluidAmount() + FluidAttributes.BUCKET_VOLUME <= entity.fluidTank.getCapacity())) {
             return false;
         }
         return true;
