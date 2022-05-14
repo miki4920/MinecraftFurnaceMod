@@ -52,7 +52,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
             super.onContentsChanged(slot);
         }
     };
-    private final FluidTank fluidTank = new FluidTank(10000) {
+    public final FluidTank fluidTank = new FluidTank(10000) {
         @Override
         protected void onContentsChanged() {
             super.onContentsChanged();
