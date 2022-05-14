@@ -120,8 +120,29 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+
 dependencies {
+    repositories {
+        maven {
+            name = "Progwml6 maven"
+            url = "https://dvs1.progwml6.com/files/maven/"
+        }
+        maven {
+            name = "ModMaven"
+            url = "https://modmaven.dev"
+        }
+        maven { url 'https://modmaven.dev/' }
+    }
+
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.16'
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+
+    compileOnly "mekanism:Mekanism:${mekanism_version}:api"
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
