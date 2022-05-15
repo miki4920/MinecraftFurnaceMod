@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "group": "obsidian_ingot",
   "ingredients": [
     {
       "item": "furnacemod:obsidian_ingot_block"

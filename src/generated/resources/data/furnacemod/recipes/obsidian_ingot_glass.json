@@ -1,17 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "   ",
-    "   ",
-    "BBB"
+    "OOO",
+    "OGO",
+    "OOO"
   ],
   "key": {
-    "B": {
+    "O": {
       "item": "furnacemod:obsidian_ingot_block"
+    },
+    "G": {
+      "tag": "forge:glass"
     }
   },
   "result": {
-    "item": "furnacemod:obsidian_ingot_block_slab",
-    "count": 6
+    "item": "furnacemod:obsidian_ingot_glass",
+    "count": 8
   }
 }

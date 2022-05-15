@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " I ",
-    " I ",
+    "OO ",
+    "OS ",
     " S "
   ],
   "key": {
-    "I": {
-      "tag": "forge:ingots/refined_obsidian"
+    "O": {
+      "item": "furnacemod:obsidian_ingot"
     },
     "S": {
       "tag": "forge:rods/wooden"
     }
   },
   "result": {
-    "item": "furnacemod:obsidian_ingot_sword"
+    "item": "furnacemod:obsidian_ingot_axe"
   }
 }

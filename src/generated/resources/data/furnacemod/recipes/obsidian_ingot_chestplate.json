@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "I I",
-    "III",
-    "III"
+    "O O",
+    "OOO",
+    "OOO"
   ],
   "key": {
-    "I": {
-      "tag": "forge:ingots/refined_obsidian"
+    "O": {
+      "item": "furnacemod:obsidian_ingot"
     }
   },
   "result": {
