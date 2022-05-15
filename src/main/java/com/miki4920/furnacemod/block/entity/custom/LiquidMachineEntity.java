@@ -1,8 +1,8 @@
 package com.miki4920.furnacemod.block.entity.custom;
 
 import com.miki4920.furnacemod.block.entity.ModBlockEntities;
-import com.miki4920.furnacemod.recipe.LavaPoweredFurnaceRecipe;
-import com.miki4920.furnacemod.screen.LavaPoweredFurnaceMenu;
+import com.miki4920.furnacemod.recipe.LiquidMachineRecipe;
+import com.miki4920.furnacemod.screen.LiquidMachineMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -38,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.Optional;
 
-public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvider {
+public class LiquidMachineEntity extends BlockEntity implements MenuProvider {
     public static final int ITEM_SLOTS = 5;
     public static final int LIQUID_CONTAINER_INPUT = 0;
     public static final int LIQUID_CONTAINER_OUTPUT = 1;
@@ -52,13 +52,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
             super.onContentsChanged(slot);
         }
     };
-    public final FluidTank fluidTank = new FluidTank(10000) {
-        @Override
-        protected void onContentsChanged() {
-            super.onContentsChanged();
-        }
-    };
-
+    public final FluidTank fluidTank = new FluidTank(10000);
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 100;
@@ -66,25 +60,25 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
     private LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.empty();
 
-    public LavaPoweredFurnaceEntity(BlockPos pWorldPosition, BlockState pBlockState) {
+    public LiquidMachineEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.LAVA_POWERED_FURNACE_ENTITY.get(), pWorldPosition, pBlockState);
         this.data = new ContainerData() {
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> LavaPoweredFurnaceEntity.this.progress;
-                    case 1 -> LavaPoweredFurnaceEntity.this.maxProgress;
-                    case 2 -> LavaPoweredFurnaceEntity.this.fluidTank.getFluidAmount();
-                    case 3 -> LavaPoweredFurnaceEntity.this.fluidTank.getCapacity();
+                    case 0 -> LiquidMachineEntity.this.progress;
+                    case 1 -> LiquidMachineEntity.this.maxProgress;
+                    case 2 -> LiquidMachineEntity.this.fluidTank.getFluidAmount();
+                    case 3 -> LiquidMachineEntity.this.fluidTank.getCapacity();
                     default -> 0;
                 };
             }
 
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> LavaPoweredFurnaceEntity.this.progress = value;
-                    case 1 -> LavaPoweredFurnaceEntity.this.maxProgress = value;
-                    case 2 -> LavaPoweredFurnaceEntity.this.fluidTank.setFluid(new FluidStack(Fluids.LAVA, value));
-                    case 3 -> LavaPoweredFurnaceEntity.this.fluidTank.setCapacity(value);
+                    case 0 -> LiquidMachineEntity.this.progress = value;
+                    case 1 -> LiquidMachineEntity.this.maxProgress = value;
+                    case 2 -> LiquidMachineEntity.this.fluidTank.setFluid(new FluidStack(Fluids.LAVA, value));
+                    case 3 -> LiquidMachineEntity.this.fluidTank.setCapacity(value);
                 }
             }
 
@@ -102,7 +96,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pInventory, @NotNull Player pPlayer) {
-        return new LavaPoweredFurnaceMenu(pContainerId, pInventory, this, this.data);
+        return new LiquidMachineMenu(pContainerId, pInventory, this, this.data);
     }
 
     @Nonnull
@@ -135,17 +129,17 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
     protected void saveAdditional(@NotNull CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         CompoundTag fluidTag = new CompoundTag();
-        tag.put("fluid", fluidTank.writeToNBT(fluidTag));
+        fluidTank.writeToNBT(tag);
         tag.putInt("lava_powered_station.progress", progress);
         super.saveAdditional(tag);
     }
 
     @Override
-    public void load(@NotNull CompoundTag nbt) {
-        super.load(nbt);
-        itemHandler.deserializeNBT(nbt.getCompound("inventory"));
-        fluidTank.readFromNBT(nbt.getCompound("fluid"));
-        progress = nbt.getInt("lava_powered_station.progress");
+    public void load(@NotNull CompoundTag tag) {
+        super.load(tag);
+        itemHandler.deserializeNBT(tag.getCompound("inventory"));
+        fluidTank.readFromNBT(tag);
+        progress = tag.getInt("lava_powered_station.progress");
     }
 
     public void drops() {
@@ -157,7 +151,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         Containers.dropContents(this.level, this.worldPosition, inventory);
     }
 
-    public static SimpleContainer getInventory(LavaPoweredFurnaceEntity entity) {
+    public static SimpleContainer getInventory(LiquidMachineEntity entity) {
         SimpleContainer inventory = new SimpleContainer(entity.itemHandler.getSlots());
         for (int i = 0; i < entity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
@@ -165,7 +159,7 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         return inventory;
     }
 
-    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, LavaPoweredFurnaceEntity entity) {
+    public static void tick(Level pLevel, BlockPos pPos, BlockState pState, LiquidMachineEntity entity) {
         if(!pLevel.isClientSide()) {
             if(hasRecipe(entity) && hasEnoughLava(entity)) {
                 entity.progress++;
@@ -186,13 +180,13 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         }
     }
 
-    private static boolean canInsertLava(LavaPoweredFurnaceEntity entity) {
+    private static boolean canInsertLava(LiquidMachineEntity entity) {
         SimpleContainer inventory = getInventory(entity);
-        ItemStack inputItemStack = inventory.getItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT);
+        ItemStack inputItemStack = inventory.getItem(LiquidMachineEntity.LIQUID_CONTAINER_INPUT);
         if(inputItemStack == ItemStack.EMPTY || !(inputItemStack.getItem() instanceof BucketItem)) {
             return false;
         }
-        else if(!canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
+        else if(!canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LiquidMachineEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
             return false;
         }
         else if(!(entity.fluidTank.getFluidAmount() + FluidAttributes.BUCKET_VOLUME <= entity.fluidTank.getCapacity())) {
@@ -201,43 +195,43 @@ public class LavaPoweredFurnaceEntity extends BlockEntity implements MenuProvide
         return true;
     }
 
-    private static void insertLava(LavaPoweredFurnaceEntity entity) {
+    private static void insertLava(LiquidMachineEntity entity) {
         SimpleContainer inventory = getInventory(entity);
-        ItemStack inputItemStack = inventory.getItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT);
+        ItemStack inputItemStack = inventory.getItem(LiquidMachineEntity.LIQUID_CONTAINER_INPUT);
         BucketItem bucket = (BucketItem) inputItemStack.getItem();
         FluidStack extracted = new FluidStack(bucket.getFluid(), FluidAttributes.BUCKET_VOLUME);
         entity.fluidTank.fill(extracted, IFluidHandler.FluidAction.EXECUTE);
-        inventory.removeItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 1);
-        if(canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
-            entity.itemHandler.insertItem(LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT, new ItemStack(Items.BUCKET, 1), false);
+        inventory.removeItem(LiquidMachineEntity.LIQUID_CONTAINER_INPUT, 1);
+        if(canInsertItemIntoSlot(inventory, new ItemStack(Items.BUCKET, 1), LiquidMachineEntity.LIQUID_CONTAINER_OUTPUT) || !canInsertAmountIntoSlot(inventory, LIQUID_CONTAINER_OUTPUT)) {
+            entity.itemHandler.insertItem(LiquidMachineEntity.LIQUID_CONTAINER_OUTPUT, new ItemStack(Items.BUCKET, 1), false);
         }
     }
 
-    private static void removeLava(LavaPoweredFurnaceEntity entity) {
+    private static void removeLava(LiquidMachineEntity entity) {
         entity.fluidTank.drain(1, IFluidHandler.FluidAction.EXECUTE);
     }
 
-    private static boolean hasRecipe(LavaPoweredFurnaceEntity entity) {
+    private static boolean hasRecipe(LiquidMachineEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = getInventory(entity);
         assert level != null;
-        Optional<LavaPoweredFurnaceRecipe> match = level.getRecipeManager()
-                .getRecipeFor(LavaPoweredFurnaceRecipe.Type.INSTANCE, inventory, level);
+        Optional<LiquidMachineRecipe> match = level.getRecipeManager()
+                .getRecipeFor(LiquidMachineRecipe.Type.INSTANCE, inventory, level);
 
         return match.isPresent() && canInsertAmountIntoSlot(inventory, OUTPUT_SLOT) && canInsertItemIntoSlot(inventory, match.get().getResultItem(), OUTPUT_SLOT);
     }
 
-    private static boolean hasEnoughLava(LavaPoweredFurnaceEntity entity) {
+    private static boolean hasEnoughLava(LiquidMachineEntity entity) {
         return entity.fluidTank.getFluidAmount() >= 1;
     }
 
-    private static void craftItem(LavaPoweredFurnaceEntity entity) {
+    private static void craftItem(LiquidMachineEntity entity) {
         Level level = entity.level;
         SimpleContainer inventory = getInventory(entity);
 
         assert level != null;
-        Optional<LavaPoweredFurnaceRecipe> match = level.getRecipeManager()
-                .getRecipeFor(LavaPoweredFurnaceRecipe.Type.INSTANCE, inventory, level);
+        Optional<LiquidMachineRecipe> match = level.getRecipeManager()
+                .getRecipeFor(LiquidMachineRecipe.Type.INSTANCE, inventory, level);
 
         if(match.isPresent()) {
             entity.itemHandler.extractItem(SLOT_ONE,1, false);

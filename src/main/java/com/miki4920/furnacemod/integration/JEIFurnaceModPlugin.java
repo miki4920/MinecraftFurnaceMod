@@ -1,7 +1,7 @@
 package com.miki4920.furnacemod.integration;
 
 import com.miki4920.furnacemod.FurnaceMod;
-import com.miki4920.furnacemod.recipe.LavaPoweredFurnaceRecipe;
+import com.miki4920.furnacemod.recipe.LiquidMachineRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.recipe.RecipeType;
@@ -31,7 +31,7 @@ public class JEIFurnaceModPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager rm = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
-        List<LavaPoweredFurnaceRecipe> recipes = rm.getAllRecipesFor(LavaPoweredFurnaceRecipe.Type.INSTANCE);
-        registration.addRecipes(new RecipeType<>(LavaPoweredFurnaceRecipeCategory.UID, LavaPoweredFurnaceRecipe.class), recipes);
+        List<LiquidMachineRecipe> recipes = rm.getAllRecipesFor(LiquidMachineRecipe.Type.INSTANCE);
+        registration.addRecipes(new RecipeType<>(LavaPoweredFurnaceRecipeCategory.UID, LiquidMachineRecipe.class), recipes);
     }
 }

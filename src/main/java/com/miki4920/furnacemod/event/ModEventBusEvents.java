@@ -1,8 +1,7 @@
 package com.miki4920.furnacemod.event;
 
 import com.miki4920.furnacemod.FurnaceMod;
-import com.miki4920.furnacemod.block.custom.LavaPoweredFurnace;
-import com.miki4920.furnacemod.recipe.LavaPoweredFurnaceRecipe;
+import com.miki4920.furnacemod.recipe.LiquidMachineRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,6 +15,6 @@ import javax.annotation.Nonnull;
 public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerRecipeTypes(@Nonnull final RegistryEvent.Register<RecipeSerializer<?>> event) {
-        Registry.register(Registry.RECIPE_TYPE, LavaPoweredFurnaceRecipe.Type.ID, LavaPoweredFurnaceRecipe.Type.INSTANCE);
+        Registry.register(Registry.RECIPE_TYPE, LiquidMachineRecipe.Type.ID, LiquidMachineRecipe.Type.INSTANCE);
     }
 }

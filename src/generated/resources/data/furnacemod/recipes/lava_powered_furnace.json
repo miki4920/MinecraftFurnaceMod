@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "GGG",
-    "GIG",
-    "GGG"
+    "OOO",
+    "OGO",
+    "OOO"
   ],
   "key": {
-    "G": {
+    "O": {
       "tag": "forge:obsidian"
     },
-    "I": {
-      "tag": "forge:glass"
+    "G": {
+      "item": "minecraft:furnace"
     }
   },
   "result": {

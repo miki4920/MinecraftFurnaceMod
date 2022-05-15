@@ -4,7 +4,7 @@ import com.miki4920.furnacemod.block.ModBlocks;
 import com.miki4920.furnacemod.block.entity.ModBlockEntities;
 import com.miki4920.furnacemod.item.ModItems;
 import com.miki4920.furnacemod.recipe.ModRecipes;
-import com.miki4920.furnacemod.screen.LavaPoweredFurnaceScreen;
+import com.miki4920.furnacemod.screen.LiquidMachineScreen;
 import com.miki4920.furnacemod.screen.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -39,6 +39,6 @@ public class FurnaceMod
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.OBSIDIAN_INGOT_GLASS.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.OBSIDIAN_INGOT_LAMP.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.LAVA_POWERED_FURNACE.get(), RenderType.translucent());
-        MenuScreens.register(ModMenuTypes.LAVA_POWERED_FURNACE_MENU.get(), LavaPoweredFurnaceScreen::new);
+        MenuScreens.register(ModMenuTypes.LAVA_POWERED_FURNACE_MENU.get(), LiquidMachineScreen::new);
     }
 }

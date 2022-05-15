@@ -1,7 +1,7 @@
 package com.miki4920.furnacemod.block.custom;
 
 import com.miki4920.furnacemod.block.entity.ModBlockEntities;
-import com.miki4920.furnacemod.block.entity.custom.LavaPoweredFurnaceEntity;
+import com.miki4920.furnacemod.block.entity.custom.LiquidMachineEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,18 +21,13 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class LavaPoweredFurnace extends BaseEntityBlock {
+public class LiquidMachine extends BaseEntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-    public LavaPoweredFurnace(Properties properties) {
+    public LiquidMachine(Properties properties) {
         super(properties);
     }
 
@@ -47,25 +41,6 @@ public class LavaPoweredFurnace extends BaseEntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
-    }
-
-    @Override
-    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
-        int ambientLight = super.getLightEmission(state, world, pos);
-        if (ambientLight == 15) {
-            //If we are already at the max light value don't bother looking up the tile to see if it has a fluid that gives off light
-            return ambientLight;
-        }
-        BlockEntity entity = level.getBlockEntity(pos);
-        if (entity != null && entity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).isPresent()) {
-            // TODO:Determine how fluid capability works with a single tank
-            FluidStack fluid = entity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).resolve().get().getFluidInTank();
-            if (!fluid.isEmpty()) {
-                FluidAttributes fluidAttributes = fluid.getFluid().getAttributes();
-                ambientLight = fluidAttributes.getLuminosity(fluid));
-            }
-        }
-        return ambientLight;
     }
 
     @Override
@@ -92,8 +67,8 @@ public class LavaPoweredFurnace extends BaseEntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof LavaPoweredFurnaceEntity) {
-                ((LavaPoweredFurnaceEntity) blockEntity).drops();
+            if (blockEntity instanceof LiquidMachineEntity) {
+                ((LiquidMachineEntity) blockEntity).drops();
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
@@ -104,8 +79,8 @@ public class LavaPoweredFurnace extends BaseEntityBlock {
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof LavaPoweredFurnaceEntity) {
-                NetworkHooks.openGui(((ServerPlayer)pPlayer), (LavaPoweredFurnaceEntity)entity, pPos);
+            if(entity instanceof LiquidMachineEntity) {
+                NetworkHooks.openGui(((ServerPlayer)pPlayer), (LiquidMachineEntity)entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -117,13 +92,13 @@ public class LavaPoweredFurnace extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new LavaPoweredFurnaceEntity(pPos, pState);
+        return new LiquidMachineEntity(pPos, pState);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         return createTickerHelper(pBlockEntityType, ModBlockEntities.LAVA_POWERED_FURNACE_ENTITY.get(),
-                LavaPoweredFurnaceEntity::tick);
+                LiquidMachineEntity::tick);
     }
 }

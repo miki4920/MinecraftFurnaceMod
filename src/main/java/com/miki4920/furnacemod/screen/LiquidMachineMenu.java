@@ -1,11 +1,9 @@
 package com.miki4920.furnacemod.screen;
 
 import com.miki4920.furnacemod.block.ModBlocks;
-import com.miki4920.furnacemod.block.custom.LavaPoweredFurnace;
-import com.miki4920.furnacemod.block.entity.custom.LavaPoweredFurnaceEntity;
+import com.miki4920.furnacemod.block.entity.custom.LiquidMachineEntity;
 import com.miki4920.furnacemod.screen.slot.ModResultSlot;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -14,32 +12,31 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import org.jetbrains.annotations.Nullable;
 
-public class LavaPoweredFurnaceMenu extends AbstractContainerMenu {
-    private final LavaPoweredFurnaceEntity blockEntity;
+public class LiquidMachineMenu extends AbstractContainerMenu {
+    private final LiquidMachineEntity blockEntity;
     private final Level level;
     private final ContainerData data;
 
-    protected LavaPoweredFurnaceMenu(int pContainerId, Inventory inventory, FriendlyByteBuf extraData) {
+    protected LiquidMachineMenu(int pContainerId, Inventory inventory, FriendlyByteBuf extraData) {
         this(pContainerId, inventory, inventory.player.level.getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(4));
     }
 
-    public LavaPoweredFurnaceMenu(int pContainerId, Inventory inventory, BlockEntity entity, ContainerData data) {
+    public LiquidMachineMenu(int pContainerId, Inventory inventory, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.LAVA_POWERED_FURNACE_MENU.get(), pContainerId);
-        checkContainerSize(inventory, LavaPoweredFurnaceEntity.ITEM_SLOTS);
-        blockEntity = ((LavaPoweredFurnaceEntity) entity);
+        checkContainerSize(inventory, LiquidMachineEntity.ITEM_SLOTS);
+        blockEntity = ((LiquidMachineEntity) entity);
         this.level = inventory.player.level;
         this.data = data;
         addPlayerInventory(inventory);
         addPlayerHotbar(inventory);
 
         this.blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_INPUT, 48, 18));
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.LIQUID_CONTAINER_OUTPUT, 48, 53));
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_ONE, 88, 18));
-            this.addSlot(new SlotItemHandler(handler, LavaPoweredFurnaceEntity.SLOT_TWO, 134, 18));
-            this.addSlot(new ModResultSlot(handler, LavaPoweredFurnaceEntity.OUTPUT_SLOT, 111, 51));
+            this.addSlot(new SlotItemHandler(handler, LiquidMachineEntity.LIQUID_CONTAINER_INPUT, 48, 18));
+            this.addSlot(new SlotItemHandler(handler, LiquidMachineEntity.LIQUID_CONTAINER_OUTPUT, 48, 53));
+            this.addSlot(new SlotItemHandler(handler, LiquidMachineEntity.SLOT_ONE, 88, 18));
+            this.addSlot(new SlotItemHandler(handler, LiquidMachineEntity.SLOT_TWO, 134, 18));
+            this.addSlot(new ModResultSlot(handler, LiquidMachineEntity.OUTPUT_SLOT, 111, 51));
         });
 
         addDataSlots(data);
@@ -69,7 +66,7 @@ public class LavaPoweredFurnaceMenu extends AbstractContainerMenu {
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-    private static final int TE_INVENTORY_SLOT_COUNT = LavaPoweredFurnaceEntity.ITEM_SLOTS;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = LiquidMachineEntity.ITEM_SLOTS;  // must be the number of slots you have!
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {

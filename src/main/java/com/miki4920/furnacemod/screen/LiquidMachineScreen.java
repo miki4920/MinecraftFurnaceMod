@@ -8,12 +8,11 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 
-public class LavaPoweredFurnaceScreen extends AbstractContainerScreen<LavaPoweredFurnaceMenu> {
+public class LiquidMachineScreen extends AbstractContainerScreen<LiquidMachineMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(FurnaceMod.MOD_ID, "textures/gui/lava_powered_furnace_gui.png");
 
-    public LavaPoweredFurnaceScreen(LavaPoweredFurnaceMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public LiquidMachineScreen(LiquidMachineMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 

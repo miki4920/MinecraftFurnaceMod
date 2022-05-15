@@ -3,8 +3,7 @@ package com.miki4920.furnacemod.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.miki4920.furnacemod.FurnaceMod;
-import com.miki4920.furnacemod.block.custom.LavaPoweredFurnace;
-import com.miki4920.furnacemod.block.entity.custom.LavaPoweredFurnaceEntity;
+import com.miki4920.furnacemod.block.entity.custom.LiquidMachineEntity;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -16,13 +15,13 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
-public class LavaPoweredFurnaceRecipe implements Recipe<SimpleContainer> {
+public class LiquidMachineRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
 
-    public LavaPoweredFurnaceRecipe(ResourceLocation id, ItemStack output,
-                                   NonNullList<Ingredient> recipeItems) {
+    public LiquidMachineRecipe(ResourceLocation id, ItemStack output,
+                               NonNullList<Ingredient> recipeItems) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
@@ -31,11 +30,11 @@ public class LavaPoweredFurnaceRecipe implements Recipe<SimpleContainer> {
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
         // Check if both slots match the recipe
-        if (recipeItems.get(0).test(pContainer.getItem(LavaPoweredFurnaceEntity.SLOT_ONE)) && recipeItems.get(1).test(pContainer.getItem(LavaPoweredFurnaceEntity.SLOT_TWO))) {
+        if (recipeItems.get(0).test(pContainer.getItem(LiquidMachineEntity.SLOT_ONE)) && recipeItems.get(1).test(pContainer.getItem(LiquidMachineEntity.SLOT_TWO))) {
             return true;
         }
         // Check items in reverse, allowing for flexible recipe
-        else if (recipeItems.get(1).test(pContainer.getItem(LavaPoweredFurnaceEntity.SLOT_ONE)) && recipeItems.get(0).test(pContainer.getItem(LavaPoweredFurnaceEntity.SLOT_TWO))) {
+        else if (recipeItems.get(1).test(pContainer.getItem(LiquidMachineEntity.SLOT_ONE)) && recipeItems.get(0).test(pContainer.getItem(LiquidMachineEntity.SLOT_TWO))) {
             return true;
         }
         return false;
@@ -76,19 +75,19 @@ public class LavaPoweredFurnaceRecipe implements Recipe<SimpleContainer> {
         return Type.INSTANCE;
     }
 
-    public static class Type implements RecipeType<LavaPoweredFurnaceRecipe> {
+    public static class Type implements RecipeType<LiquidMachineRecipe> {
         private Type() { }
         public static final Type INSTANCE = new Type();
         public static final String ID = "lava_powered_furnace_recipe";
     }
 
-    public static class Serializer implements RecipeSerializer<LavaPoweredFurnaceRecipe> {
+    public static class Serializer implements RecipeSerializer<LiquidMachineRecipe> {
         public static final Serializer INSTANCE = new Serializer();
         public static final ResourceLocation ID =
                 new ResourceLocation(FurnaceMod.MOD_ID,"lava_powered_furnace_recipe");
 
         @Override
-        public LavaPoweredFurnaceRecipe fromJson(ResourceLocation id, JsonObject json) {
+        public LiquidMachineRecipe fromJson(ResourceLocation id, JsonObject json) {
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
             JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
@@ -98,11 +97,11 @@ public class LavaPoweredFurnaceRecipe implements Recipe<SimpleContainer> {
                 inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
             }
 
-            return new LavaPoweredFurnaceRecipe(id, output, inputs);
+            return new LiquidMachineRecipe(id, output, inputs);
         }
 
         @Override
-        public LavaPoweredFurnaceRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
+        public LiquidMachineRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
@@ -110,11 +109,11 @@ public class LavaPoweredFurnaceRecipe implements Recipe<SimpleContainer> {
             }
 
             ItemStack output = buf.readItem();
-            return new LavaPoweredFurnaceRecipe(id, output, inputs);
+            return new LiquidMachineRecipe(id, output, inputs);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf buf, LavaPoweredFurnaceRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buf, LiquidMachineRecipe recipe) {
             buf.writeInt(recipe.getIngredients().size());
             for (Ingredient ing : recipe.getIngredients()) {
                 ing.toNetwork(buf);

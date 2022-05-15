@@ -2,7 +2,7 @@ package com.miki4920.furnacemod.integration;
 
 import com.miki4920.furnacemod.FurnaceMod;
 import com.miki4920.furnacemod.block.ModBlocks;
-import com.miki4920.furnacemod.recipe.LavaPoweredFurnaceRecipe;
+import com.miki4920.furnacemod.recipe.LiquidMachineRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class LavaPoweredFurnaceRecipeCategory implements IRecipeCategory<LavaPoweredFurnaceRecipe> {
+public class LavaPoweredFurnaceRecipeCategory implements IRecipeCategory<LiquidMachineRecipe> {
     public final static ResourceLocation UID = new ResourceLocation(FurnaceMod.MOD_ID, "gem_cutting");
     public final static ResourceLocation TEXTURE =
             new ResourceLocation(FurnaceMod.MOD_ID, "textures/gui/lava_powered_furnace_gui.png");
@@ -42,8 +42,8 @@ public class LavaPoweredFurnaceRecipeCategory implements IRecipeCategory<LavaPow
 
     @Override
     @SuppressWarnings("removal")
-    public @NotNull Class<? extends LavaPoweredFurnaceRecipe> getRecipeClass() {
-        return LavaPoweredFurnaceRecipe.class;
+    public @NotNull Class<? extends LiquidMachineRecipe> getRecipeClass() {
+        return LiquidMachineRecipe.class;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LavaPoweredFurnaceRecipeCategory implements IRecipeCategory<LavaPow
     }
 
     @Override
-    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull LavaPoweredFurnaceRecipe recipe, @Nonnull IFocusGroup focusGroup) {
+    public void setRecipe(@Nonnull IRecipeLayoutBuilder builder, @Nonnull LiquidMachineRecipe recipe, @Nonnull IFocusGroup focusGroup) {
         builder.addSlot(RecipeIngredientRole.CATALYST, 48, 18).addIngredients(Ingredient.of(Items.LAVA_BUCKET));
         builder.addSlot(RecipeIngredientRole.INPUT, 88, 18).addIngredients(recipe.getIngredients().get(0));
         builder.addSlot(RecipeIngredientRole.INPUT, 134, 18).addIngredients(recipe.getIngredients().get(1));
