@@ -29,15 +29,7 @@ public class LiquidMachineRecipe implements Recipe<SimpleContainer> {
 
     @Override
     public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        // Check if both slots match the recipe
-        if (recipeItems.get(0).test(pContainer.getItem(LiquidMachineEntity.SLOT_ONE)) && recipeItems.get(1).test(pContainer.getItem(LiquidMachineEntity.SLOT_TWO))) {
-            return true;
-        }
-        // Check items in reverse, allowing for flexible recipe
-        else if (recipeItems.get(1).test(pContainer.getItem(LiquidMachineEntity.SLOT_ONE)) && recipeItems.get(0).test(pContainer.getItem(LiquidMachineEntity.SLOT_TWO))) {
-            return true;
-        }
-        return false;
+        return recipeItems.get(0).test(pContainer.getItem(LiquidMachineEntity.SLOT_ONE)) && recipeItems.get(1).test(pContainer.getItem(LiquidMachineEntity.SLOT_TWO));
     }
 
     @Override
