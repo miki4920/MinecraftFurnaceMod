@@ -5,14 +5,12 @@ import com.miki4920.furnacemod.item.ModItems;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.ShapelessRecipe;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -20,17 +18,14 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     public ModRecipeProvider(DataGenerator pGenerator) {
         super(pGenerator);
     }
-
     protected static RecipeBuilder modFenceBuilder(ItemLike pFence, Ingredient pMaterial, Ingredient pStick) {
         return ShapedRecipeBuilder.shaped(pFence, 6).define('W', pMaterial).define('#', pStick).pattern("W#W").pattern("W#W");
     }
-
     protected static RecipeBuilder modFenceGateBuilder(ItemLike pFenceGate, Ingredient pMaterial, Ingredient pStick) {
         return ShapedRecipeBuilder.shaped(pFenceGate).define('#', pStick).define('W', pMaterial).pattern("#W#").pattern("#W#");
     }
-
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
         // Blocks
         ShapedRecipeBuilder.shaped(ModBlocks.OBSIDIAN_INGOT_BLOCK.get())
                 .define('O', ModItems.OBSIDIAN_INGOT.get())
@@ -47,20 +42,19 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
         modFenceBuilder(ModBlocks.OBSIDIAN_INGOT_BLOCK_FENCE.get(), Ingredient.of(ModBlocks.OBSIDIAN_INGOT_BLOCK.get()), Ingredient.of(ModItems.OBSIDIAN_INGOT.get()))
                 .unlockedBy("has_obsidian", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(Items.OBSIDIAN).build()))
-                .save(pFinishedRecipeConsumer);;
+                .save(pFinishedRecipeConsumer);
         modFenceGateBuilder(ModBlocks.OBSIDIAN_INGOT_BLOCK_FENCE_GATE.get(), Ingredient.of(ModBlocks.OBSIDIAN_INGOT_BLOCK.get()), Ingredient.of(ModItems.OBSIDIAN_INGOT.get()))
                 .unlockedBy("has_obsidian", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(Items.OBSIDIAN).build()))
-                .save(pFinishedRecipeConsumer);;
+                .save(pFinishedRecipeConsumer);
         slabBuilder(ModBlocks.OBSIDIAN_INGOT_BLOCK_SLAB.get(), Ingredient.of(ModBlocks.OBSIDIAN_INGOT_BLOCK.get()))
                 .unlockedBy("has_obsidian", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(Items.OBSIDIAN).build()))
-                .save(pFinishedRecipeConsumer);;
+                .save(pFinishedRecipeConsumer);
         wallBuilder(ModBlocks.OBSIDIAN_INGOT_BLOCK_WALL.get(), Ingredient.of(ModBlocks.OBSIDIAN_INGOT_BLOCK.get()))
                 .unlockedBy("has_obsidian", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(Items.OBSIDIAN).build()))
-                .save(pFinishedRecipeConsumer);;
-
+                .save(pFinishedRecipeConsumer);
         ShapedRecipeBuilder.shaped(ModBlocks.OBSIDIAN_INGOT_GLASS.get(), 8)
                 .define('O', ModBlocks.OBSIDIAN_INGOT_BLOCK.get())
                 .define('G', Tags.Items.GLASS)
@@ -94,7 +88,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_obsidian", inventoryTrigger(ItemPredicate.Builder.item()
                         .of(Items.OBSIDIAN).build()))
                 .save(pFinishedRecipeConsumer);
-
         // Tools
         ShapedRecipeBuilder.shaped(ModItems.OBSIDIAN_INGOT_AXE.get())
                 .define('O', ModItems.OBSIDIAN_INGOT.get())
