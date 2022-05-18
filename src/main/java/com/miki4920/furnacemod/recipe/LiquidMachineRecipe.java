@@ -12,19 +12,22 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
 
 public class LiquidMachineRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
+    private final FluidStack outputFluid;
     private final NonNullList<Ingredient> recipeItems;
-    private final NonNullList<FluidStackIngredient> recipeFluids;
+    private final NonNullList<FluidStack> recipeFluids;
 
-    public LiquidMachineRecipe(ResourceLocation id, ItemStack output,
-                               NonNullList<Ingredient> recipeItems, NonNullList<FluidStackIngredient> recipeFluids) {
+    public LiquidMachineRecipe(ResourceLocation id, ItemStack output, FluidStack outputFluid,
+                               NonNullList<Ingredient> recipeItems, NonNullList<FluidStack> recipeFluids) {
         this.id = id;
         this.output = output;
+        this.outputFluid = outputFluid;
         this.recipeItems = recipeItems;
         this.recipeFluids = recipeFluids;
     }
