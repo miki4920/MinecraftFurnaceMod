@@ -19,12 +19,14 @@ public class LiquidMachineRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
+    private final NonNullList<FluidStackIngredient> recipeFluids;
 
     public LiquidMachineRecipe(ResourceLocation id, ItemStack output,
-                               NonNullList<Ingredient> recipeItems) {
+                               NonNullList<Ingredient> recipeItems, NonNullList<FluidStackIngredient> recipeFluids) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
+        this.recipeFluids = recipeFluids;
     }
 
     @Override
